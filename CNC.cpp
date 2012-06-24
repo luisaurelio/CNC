@@ -1,6 +1,6 @@
 /*
   CNC.cpp - Biblioteca CNC.
-  Criado por Luis Aurélio do Patrocinio, 24/05/2012.
+  Criado por Luis Aurï¿½lio do Patrocinio, 24/05/2012.
 */
 
 #include <Arduino.h>
@@ -8,7 +8,7 @@
 
 CNC::CNC(int pinX[], int pinY[], int maxStepsX, int maxStepsY, int speed, int stepsPerRevolution, int srvPin){
 
-    //Configuração do stepper
+    //Configuraï¿½ï¿½o do stepper
     Stepper stepperX(stepsPerRevolution, pinX[0], pinX[1], pinX[2], pinX[3]);
     Stepper stepperY(stepsPerRevolution, pinY[0], pinY[1], pinY[2], pinY[3]);
 
@@ -22,7 +22,7 @@ CNC::CNC(int pinX[], int pinY[], int maxStepsX, int maxStepsY, int speed, int st
     this->_lastX = 0;
     this->_lastY = 0;
 
-    //Configuração do servo
+    //Configuraï¿½ï¿½o do servo
     Servo servoZ;
     servoZ.attach(srvPin);
 }
@@ -33,13 +33,13 @@ void CNC::line(int x_1, int y_1, int x_2, int y_2){
         stepperX->step(x_1-_lastX);
         stepperY->step(y_1-_lastY);
 
-        //Incluir a rotina de descer a caneta.
+        //Descer a caneta.
         penDown();
 
         stepperX->step(x_2-x_1);
         stepperY->step(y_2-y_1);
 
-        //Incluir a rotina de subir a caneta.
+        //Subir a caneta.
         penUp();
 
         this->_lastX = x_2;
