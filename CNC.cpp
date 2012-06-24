@@ -1,6 +1,6 @@
 /*
   CNC.cpp - Biblioteca CNC.
-  Criado por Luis Aur�lio do Patrocinio, 24/05/2012.
+  Criado por Luis Aurélio do Patrocinio, 24/05/2012.
 */
 
 #include <Arduino.h>
@@ -8,7 +8,7 @@
 
 CNC::CNC(int pinX[], int pinY[], int maxStepsX, int maxStepsY, int speed, int stepsPerRevolution, int srvPin){
 
-    //Configura��o do stepper
+    //Configuração do stepper
     Stepper stepperX(stepsPerRevolution, pinX[0], pinX[1], pinX[2], pinX[3]);
     Stepper stepperY(stepsPerRevolution, pinY[0], pinY[1], pinY[2], pinY[3]);
 
@@ -22,7 +22,7 @@ CNC::CNC(int pinX[], int pinY[], int maxStepsX, int maxStepsY, int speed, int st
     this->_lastX = 0;
     this->_lastY = 0;
 
-    //Configura��o do servo
+    //Configuração do servo
     Servo servoZ;
     servoZ.attach(srvPin);
 }
@@ -57,18 +57,30 @@ void CNC::selfTest(){
     for(int i=0; i<_maxStepsX; i++){
         stepperX->step(_stepsPerRevolution);
     }
+    penDown();
+    delay(250);
+    penUp();
     delay(250);
     for(int i=0; i<_maxStepsY; i++){
         stepperY->step(_stepsPerRevolution);
     }
+    penDown();
+    delay(250);
+    penUp();
     delay(250);
     for(int i=0; i<_maxStepsX; i++){
         stepperX->step(-_stepsPerRevolution);
     }
+    penDown();
+    delay(250);
+    penUp();
     delay(250);
     for(int i=0; i<_maxStepsY; i++){
         stepperY->step(-_stepsPerRevolution);
     }
+    penDown();
+    delay(250);
+    penUp();
     delay(250);
 }
 
