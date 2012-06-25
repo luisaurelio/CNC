@@ -3,17 +3,27 @@
   Criado por Luis Aurélio do Patrocinio, 24/05/2012.
 */
 
+#include <Stepper.h>
+#include <Servo.h>
 #include <Arduino.h>
 #include "CNC.h"
 
+//Stepper stepperX;
+
 CNC::CNC(int pinX[], int pinY[], int maxStepsX, int maxStepsY, int speed, int stepsPerRevolution, int srvPin){
+//Criar uma função chamada stepperMotor para receber os steppers.
+
 
     //Configuração do stepper
+//    Stepper stepperX(stepsPerRevolution, pinX[0], pinX[1], pinX[2], pinX[3]);
     Stepper stepperX(stepsPerRevolution, pinX[0], pinX[1], pinX[2], pinX[3]);
+    //Stepper stepperX = new Stepper(stepsPerRevolution, pinX[0], pinX[1], pinX[2], pinX[3]);
+//    stepperX = stepperMotor(pinX, stepsPerRevolution);
     Stepper stepperY(stepsPerRevolution, pinY[0], pinY[1], pinY[2], pinY[3]);
 
-    stepperX.setSpeed(speed);
-    stepperY.setSpeed(speed);
+//this->_stepperX = stepperX;
+//this->_stepperY = stepperY;
+
 
     this->_speed = speed;
     this->_stepsPerRevolution = stepsPerRevolution;
@@ -24,9 +34,19 @@ CNC::CNC(int pinX[], int pinY[], int maxStepsX, int maxStepsY, int speed, int st
 
     //Configuração do servo
     Servo servoZ;
-    servoZ.attach(srvPin);
+    this->_srvPin = srvPin;
 }
 
+void CNC::setupCNC(){
+    //Setup stepper
+    stepperX->setSpeed(_speed);
+    stepperY->setSpeed(_speed);
+
+    //Setup servo
+    servoZ.attach(_srvPin);
+    penUp();
+}
+/*
 void CNC::line(int x_1, int y_1, int x_2, int y_2){
     if(x_1==x_2 || y_1==y_2){
 
@@ -83,7 +103,7 @@ void CNC::selfTest(){
     penUp();
     delay(250);
 }
-
+*/
 void CNC::penDown(){
     pen(true);
 }
@@ -99,3 +119,8 @@ void CNC::pen(bool state){
         servoZ.write(0);
     }
 }
+
+//void CNC::stepperMotor(int pin[], int stepsPerRevolution){
+//    Stepper stepper(stepsPerRevolution, pin[0], pin[1], pin[2], pin[3]);
+//    return stepper;
+//}
