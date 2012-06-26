@@ -5,14 +5,11 @@
 
 #include "CNC.h"
 
-Stepper stepperX(0,0,0,0,0);
-Stepper stepperY(0,0,0,0,0);
-
-CNC::CNC(int pinX[], int pinY[], int maxStepsX, int maxStepsY, int speed, int stepsPerRevolution, int srvPin){
+CNC::CNC(int pinX[], int pinY[], int maxStepsX, int maxStepsY, int speed, int stepsPerRevolution, int srvPin):stepperX(stepsPerRevolution, pinX[0], pinX[1], pinX[2], pinX[3]),stepperY(stepsPerRevolution, pinY[0], pinY[1], pinY[2], pinY[3]){
 
     //Configuração do stepper
-  Stepper* stepperX = new Stepper(stepsPerRevolution, pinX[0], pinX[1], pinX[2], pinX[3]);
-	Stepper* stepperY = new Stepper(stepsPerRevolution, pinY[0], pinY[1], pinY[2], pinY[3]);
+//	stepperX = Stepper(stepsPerRevolution, pinX[0], pinX[1], pinX[2], pinX[3]);
+//	stepperY = Stepper(stepsPerRevolution, pinY[0], pinY[1], pinY[2], pinY[3]);
 
     this->_speed = speed;
     this->_stepsPerRevolution = stepsPerRevolution;
