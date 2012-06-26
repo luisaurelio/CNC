@@ -29,6 +29,8 @@ class CNC{
 	int _lastY;
 	int _srvPin;
 	void pen(bool state);
+	Stepper stepperX;
+	Stepper stepperY;
 	Servo servoZ;
 };
 
